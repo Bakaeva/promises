@@ -42,13 +42,17 @@ function sendData(url, data) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const dbUrl = './db.json';
   const apiUrl = 'https://jsonplaceholder.typicode.com/posts';
 
-  const receivedData = getData(dbUrl);
-  console.log(receivedData);
+  try {
+    const receivedData = await getData(dbUrl);
+    console.log(receivedData);
 
-  const serverResponse = sendData(apiUrl, receivedData);
-  console.log(serverResponse);
+    const serverResponse = await sendData(apiUrl, receivedData);
+    console.log(serverResponse);
+  } catch (error) {
+    console.error('Произошла ошибка в getData или sendData', error);
+  }
 });
